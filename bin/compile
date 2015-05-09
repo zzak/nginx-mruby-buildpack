@@ -27,9 +27,9 @@ export PATH="$BUILD_DIR/vendor/bin:$PATH"
 ruby -v
 gem -v
 
-#git clone git://github.com/jemalloc/jemalloc.git
-wget https://github.com/jemalloc/jemalloc/archive/3.6.0.tar.gz
-tar -xvzf 3.6.0.tar.gz -C jemalloc
+git clone git://github.com/jemalloc/jemalloc.git
+#wget https://github.com/jemalloc/jemalloc/archive/3.6.0.tar.gz
+#tar -xvzf 3.6.0.tar.gz -C jemalloc
 cd jemalloc
 ./autogen.sh
 ./configure --enable-autogen --prefix="$BUILD_DIR/vendor"
