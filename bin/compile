@@ -68,12 +68,12 @@ MRuby::Build.new do |conf|
   conf.gem :github => 'matsumoto-r/mruby-uname'
   conf.gem '../mrbgems/ngx_mruby_mrblib'
 
-  conf.cc do |cc|
-    cc.command = ENV['CC'] || 'qrintf-gcc'
-  end
-  conf.linker do |linker|
-    linker.flags_after_libraries << '-ljemalloc'
-  end
+  #conf.cc do |cc|
+  #  cc.command = ENV['CC'] || 'qrintf-gcc'
+  #end
+  #conf.linker do |linker|
+  #  linker.flags_after_libraries << '-ljemalloc'
+  #end
 end" > "ngx_mruby/build_config.rb"
 
 cd ngx_mruby
