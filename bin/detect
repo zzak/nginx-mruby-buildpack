@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# This script is designed to determine if the app at `$BUILD_DIR` is compatible
+# with this buildpack.
+#
+# We should return 0 if the app is compatible, otherwise exit code 1.
+
+echo 'ngx_mruby-buildpack'
+
+return 0

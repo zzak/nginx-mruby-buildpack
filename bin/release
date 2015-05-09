@@ -1,0 +1,8 @@
+#!/bin/sh
+# bin/release <build-dir>
+
+cat << EOF
+---
+default_process_types:
+  web: nginx conf/ngx_mruby.conf.rb
+EOF

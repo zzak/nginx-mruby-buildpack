@@ -1,0 +1,90 @@
+#!/bin/sh
+
+# This script receives three arguments:
+# - BUILD_DIR
+# - CACHE_DIR
+# - ENV_DIR
+#
+# Inside `ENV_DIR` is a file for each of the application's config variables.
+#
+# After the `compile` script is executed, any changes made to `BUILD_DIR` will
+# be packaged into the slug.
+
+#set -e
+
+echo 'Compiling..'
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+mkdir -p "$BUILD_DIR/vendor"
+
+wget https://s3-external-1.amazonaws.com/heroku-buildpack-ruby/cedar-14/ruby-2.2.2.tgz
+tar -xvzf ruby-2.2.2.tgz -C "$BUILD_DIR/vendor"
+export PATH="$BUILD_DIR/vendor/bin:$PATH"
+
+ruby -v
+gem -v
+
+#git clone git://github.com/jemalloc/jemalloc.git
+wget https://github.com/jemalloc/jemalloc/archive/3.6.0.tar.gz
+tar -xvzf 3.6.0.tar.gz -C jemalloc
+cd jemalloc
+./autogen.sh
+./configure --enable-autogen --prefix="$BUILD_DIR/vendor"
+make && make install
+
+cd ..
+git clone git://github.com/h2o/qrintf.git
+cd qrintf/
+make install PREFIX="$BUILD_DIR/vendor"
+export CC="$BUILD_DIR/vendor/bin/qrintf-gcc"
+export CPPPATH="$BUILD_DIR/vendor/include:$CPPPATH"
+export CPATH="$BUILD_DIR/vendor/include:$CPATH"
+export LIBRARY_PATH="$BUILD_DIR/vendor/lib:$LIBRARY_PATH"
+export LD_LIBRARY_PATH="$BUILD_DIR/vendor/lib:$LD_LIBRARY_PATH"
+
+cd ../vendor
+git clone git://github.com/matsumoto-r/ngx_mruby.git
+
+echo "
+MRuby::Build.new do |conf|
+  toolchain :gcc
+  conf.gembox 'full-core'
+  conf.gem :github => 'iij/mruby-io'
+  conf.gem :github => 'iij/mruby-env'
+  conf.gem :github => 'iij/mruby-dir'
+  conf.gem :github => 'iij/mruby-digest'
+  conf.gem :github => 'iij/mruby-process'
+  conf.gem :github => 'iij/mruby-pack'
+  conf.gem :github => 'iij/mruby-socket'
+  conf.gem :github => 'mattn/mruby-json'
+  conf.gem :github => 'mattn/mruby-onig-regexp'
+  conf.gem :github => 'matsumoto-r/mruby-redis'
+  conf.gem :github => 'matsumoto-r/mruby-vedis'
+  conf.gem :github => 'matsumoto-r/mruby-sleep'
+  conf.gem :github => 'matsumoto-r/mruby-userdata'
+  conf.gem :github => 'matsumoto-r/mruby-uname'
+  conf.gem '../mrbgems/ngx_mruby_mrblib'
+
+  conf.cc do |cc|
+    cc.command = ENV['CC'] || 'qrintf-gcc'
+  end
+  conf.linker do |linker|
+    linker.flags_after_libraries << '-ljemalloc'
+  end
+end" > "ngx_mruby/build_config.rb"
+
+cd ngx_mruby
+git submodule init
+git submodule update
+sh build.sh
+make install
+
+# populate profile.d
+PROFILE_PATH="$BUILD_DIR/.profile.d/path.sh"
+mkdir -p $(dirname $PROFILE_PATH)
+echo "export PATH=\"vendor/bin:$PATH\"" >> $PROFILE_PATH
+
+exit 0
