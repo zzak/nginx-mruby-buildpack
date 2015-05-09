@@ -27,25 +27,25 @@ export PATH="$BUILD_DIR/vendor/bin:$PATH"
 ruby -v
 gem -v
 
-git clone git://github.com/jemalloc/jemalloc.git
-#wget https://github.com/jemalloc/jemalloc/archive/3.6.0.tar.gz
-#tar -xvzf 3.6.0.tar.gz -C jemalloc
-cd jemalloc
-./autogen.sh
-./configure --enable-autogen --prefix="$BUILD_DIR/vendor"
-make && make install
+#git clone git://github.com/jemalloc/jemalloc.git
+##wget https://github.com/jemalloc/jemalloc/archive/3.6.0.tar.gz
+##tar -xvzf 3.6.0.tar.gz -C jemalloc
+#cd jemalloc
+#./autogen.sh
+#./configure --enable-autogen --prefix="$BUILD_DIR/vendor"
+#make && make install
+#
+#cd ..
+#git clone git://github.com/h2o/qrintf.git
+#cd qrintf/
+#make install PREFIX="$BUILD_DIR/vendor"
+#export CC="$BUILD_DIR/vendor/bin/qrintf-gcc"
+#export CPPPATH="$BUILD_DIR/vendor/include:$CPPPATH"
+#export CPATH="$BUILD_DIR/vendor/include:$CPATH"
+#export LIBRARY_PATH="$BUILD_DIR/vendor/lib:$LIBRARY_PATH"
+#export LD_LIBRARY_PATH="$BUILD_DIR/vendor/lib:$LD_LIBRARY_PATH"
 
-cd ..
-git clone git://github.com/h2o/qrintf.git
-cd qrintf/
-make install PREFIX="$BUILD_DIR/vendor"
-export CC="$BUILD_DIR/vendor/bin/qrintf-gcc"
-export CPPPATH="$BUILD_DIR/vendor/include:$CPPPATH"
-export CPATH="$BUILD_DIR/vendor/include:$CPATH"
-export LIBRARY_PATH="$BUILD_DIR/vendor/lib:$LIBRARY_PATH"
-export LD_LIBRARY_PATH="$BUILD_DIR/vendor/lib:$LD_LIBRARY_PATH"
-
-cd ../vendor
+cd "$BUILD_DIR/vendor"
 git clone git://github.com/matsumoto-r/ngx_mruby.git
 
 echo "
