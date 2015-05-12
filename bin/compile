@@ -61,6 +61,39 @@ make install
 # populate profile.d
 PROFILE_PATH="$BUILD_DIR/.profile.d/path.sh"
 mkdir -p $(dirname $PROFILE_PATH)
-echo "export PATH=\"vendor/bin:$PATH\"" >> $PROFILE_PATH
+echo "export PATH=\"vendor/bin:vendor/ngx_mruby/build/nginx/sbin:$PATH\"" >> $PROFILE_PATH
+
+cd $BUILD_DIR
+mkdir -p "$BUILD_DIR/conf"
+
+echo "
+worker_processes  1;
+events {
+    worker_connections  200;
+}
+
+daemon off;
+master_process off;
+error_log   logs/error.log  debug;
+
+http {
+    include       mime.types;
+    server {
+        listen       80;
+        server_name  localhost;
+
+        # hello world example
+        location / {
+          mruby_content_handler_code '
+            Nginx::rputs \"Hello #{Nginx::module_name}/#{Nginx::module_version} world!\"
+          ';
+        }
+
+        location ~ \.rb$ {
+            mruby_add_handler on;
+        }
+    }
+}
+" > "$BUILD_DIR/conf/nginx.conf"
 
 exit 0

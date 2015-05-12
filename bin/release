@@ -4,5 +4,5 @@
 cat << EOF
 ---
 default_process_types:
-  web: nginx conf/ngx_mruby.conf.rb
+  web: nginx conf/nginx.conf
 EOF
