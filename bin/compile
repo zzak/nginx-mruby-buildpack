@@ -65,6 +65,7 @@ echo "export PATH=\"vendor/bin:vendor/ngx_mruby/build/nginx/sbin:$PATH\"" >> $PR
 
 cd $BUILD_DIR
 mkdir -p "$BUILD_DIR/conf"
+mkdir -p "$BUILD_DIR/logs"
 
 echo "
 worker_processes  1;
@@ -74,7 +75,8 @@ events {
 
 daemon off;
 master_process off;
-error_log   logs/error.log  debug;
+access_log  $BUILD_DIR/logs/nginx.access.log
+error_log   $BUILD_DIR/logs/nginx.error.log debug;
 
 http {
     include       mime.types;
