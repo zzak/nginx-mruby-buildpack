@@ -65,10 +65,12 @@ echo "export PATH=\"vendor/bin:vendor/ngx_mruby/build/nginx/sbin:$PATH\"" >> $PR
 cd $BUILD_DIR
 mkdir -p "$BUILD_DIR/conf"
 mkdir -p "$BUILD_DIR/logs"
+mkdir -p "$BUILD_DIR/tmp"
 
 echo "
 worker_processes  1;
 error_log /app/logs/nginx.error.log;
+client_body_temp_path /app/tmp;
 events {
     worker_connections  200;
 }
