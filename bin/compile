@@ -86,6 +86,8 @@ http {
         client_body_temp_path /app/tmp;
         proxy_temp_path /app/tmp;
         fastcgi_temp_path /app/tmp;
+        scgi_temp_path /app/tmp;
+        uwsgi_temp_path /app/tmp;
 
         # hello world example
         location / {
