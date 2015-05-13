@@ -76,7 +76,7 @@ daemon off;
 master_process off;
 
 http {
-    access_log  /app/logs/nginx.access.log
+    access_log  /app/logs/nginx.access.log;
     error_log   /app/logs/nginx.error.log debug;
 
     server {
