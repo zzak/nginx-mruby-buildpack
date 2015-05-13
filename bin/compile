@@ -68,6 +68,7 @@ mkdir -p "$BUILD_DIR/logs"
 
 echo "
 worker_processes  1;
+error_log /app/logs/nginx.error.log;
 events {
     worker_connections  200;
 }
@@ -77,7 +78,6 @@ master_process off;
 
 http {
     access_log  /app/logs/nginx.access.log;
-    error_log   /app/logs/nginx.error.log debug;
 
     server {
         listen       80;
