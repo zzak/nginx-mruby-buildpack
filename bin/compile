@@ -74,11 +74,11 @@ events {
 
 daemon off;
 master_process off;
-error_log   /app/logs/nginx.error.log debug;
 
 http {
-    include       mime.types;
     access_log  /app/logs/nginx.access.log
+    error_log   /app/logs/nginx.error.log debug;
+
     server {
         listen       80;
         server_name  localhost;
