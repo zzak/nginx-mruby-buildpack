@@ -84,6 +84,7 @@ http {
         listen       80;
         server_name  localhost;
         client_body_temp_path /app/tmp;
+        proxy_temp_path /app/tmp;
 
         # hello world example
         location / {
