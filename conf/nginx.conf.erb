@@ -11,7 +11,7 @@ http {
     access_log  /app/logs/nginx.access.log;
 
     server {
-        listen       80;
+        listen      <%= ENV["PORT"] %>;
         server_name  localhost;
         client_body_temp_path /app/tmp;
         proxy_temp_path /app/tmp;
