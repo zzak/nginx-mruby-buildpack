@@ -1,4 +1,39 @@
 #!/usr/bin/env bash
 
+# Process management
+psmgr=/tmp/nginx-buildpack-wait
+rm -f $psmgr
+mkfifo $psmgr
+
+# Evaluate config
 erb conf/nginx.conf.erb > conf/nginx.conf
-nginx -c /app/conf/nginx.conf
+
+# Initialize logs
+mkdir -p logs/nginx
+touch logs/nginx/access.log logs/nginx/error.log
+
+# Log redirection.
+(
+  #Redirect NGINX logs to stdout.
+  tail -qF -n 0 logs/nginx/*.log
+  echo 'logs' >$psmgr
+) &
+
+if [[ -z "$FORCE" ]]
+then
+  FILE="/tmp/app-initialized"
+
+  # Block app-initialized
+  while [[ ! -f "$FILE" ]]
+  do
+    sleep 1
+  done
+fi
+
+# Start nginx
+(
+  nginx -c /app/conf/nginx.conf
+) &
+
+read exit_process <$psmgr
+exit 1
