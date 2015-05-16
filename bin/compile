@@ -14,12 +14,13 @@
 
 echo 'Compiling..'
 
+SCRIPT_DIR=$0
 BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
 mkdir -p "$BUILD_DIR/bin"
-cp bin/start-nginx "$BUILD_DIR/bin/"
+cp "$SCRIPT_DIR/bin/start-nginx" "$BUILD_DIR/bin/"
 
 mkdir -p "$BUILD_DIR/vendor"
 
@@ -66,7 +67,7 @@ echo "export PATH=\"bin:vendor/bin:vendor/ngx_mruby/build/nginx/sbin:$PATH\"" >>
 
 cd $BUILD_DIR
 mkdir -p "$BUILD_DIR/conf"
-cp conf/nginx.conf $BUILD_DIR/conf/
+cp "$SCRIPT_DIR/conf/nginx.conf" "$BUILD_DIR/conf/"
 
 mkdir -p "$BUILD_DIR/logs"
 mkdir -p "$BUILD_DIR/tmp"
