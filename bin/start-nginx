@@ -19,20 +19,20 @@ touch logs/nginx/access.log logs/nginx/error.log
   echo 'logs' >$psmgr
 ) &
 
-if [[ -z "$FORCE" ]]
-then
-  FILE="/tmp/app-initialized"
-
-  # Block app-initialized
-  while [[ ! -f "$FILE" ]]
-  do
-    sleep 1
-  done
-fi
+#if [[ -z "$FORCE" ]]
+#then
+#  FILE="/tmp/app-initialized"
+#
+#  # Block app-initialized
+#  while [[ ! -f "$FILE" ]]
+#  do
+#    sleep 1
+#  done
+#fi
 
 # Start nginx
 (
-  nginx -c /app/conf/nginx.conf
+  nginx -p . -c /app/conf/nginx.conf
 ) &
 
 read exit_process <$psmgr
