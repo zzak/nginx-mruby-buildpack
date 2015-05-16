@@ -25,7 +25,6 @@ mkdir -p "$BUILD_DIR/vendor"
 
 wget https://s3-external-1.amazonaws.com/heroku-buildpack-ruby/cedar-14/ruby-2.2.2.tgz
 tar -xvzf ruby-2.2.2.tgz -C "$BUILD_DIR/vendor"
-export PATH="$BUILD_DIR/vendor/bin:$PATH"
 
 ruby -v
 gem -v
