@@ -19,7 +19,7 @@ CACHE_DIR=$2
 ENV_DIR=$3
 
 mkdir -p "$BUILD_DIR/bin"
-cp bin/start-nginx $BUILD_DIR/bin/
+cp bin/start-nginx "$BUILD_DIR/bin/"
 
 mkdir -p "$BUILD_DIR/vendor"
 
