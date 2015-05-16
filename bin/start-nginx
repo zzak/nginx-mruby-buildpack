@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
+erb conf/nginx.conf.erb > conf/nginx.conf
 nginx -c /app/conf/nginx.conf
