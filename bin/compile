@@ -67,7 +67,7 @@ echo "export PATH=\"bin:vendor/bin:vendor/ngx_mruby/build/nginx/sbin:$PATH\"" >>
 
 cd $BUILD_DIR
 mkdir -p "$BUILD_DIR/conf"
-cp "$SCRIPT_DIR/conf/nginx.conf" "$BUILD_DIR/conf/"
+cp "$SCRIPT_DIR/conf/nginx.conf.erb" "$BUILD_DIR/conf/"
 
 mkdir -p "$BUILD_DIR/logs"
 mkdir -p "$BUILD_DIR/tmp"
