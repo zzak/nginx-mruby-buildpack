@@ -64,43 +64,9 @@ echo "export PATH=\"vendor/bin:vendor/ngx_mruby/build/nginx/sbin:$PATH\"" >> $PR
 
 cd $BUILD_DIR
 mkdir -p "$BUILD_DIR/conf"
+cp conf/nginx.conf $BUILD_DIR/conf/
+
 mkdir -p "$BUILD_DIR/logs"
 mkdir -p "$BUILD_DIR/tmp"
-
-echo "
-worker_processes  1;
-error_log /app/logs/nginx.error.log;
-events {
-    worker_connections  200;
-}
-
-daemon off;
-master_process off;
-
-http {
-    access_log  /app/logs/nginx.access.log;
-
-    server {
-        listen       80;
-        server_name  localhost;
-        client_body_temp_path /app/tmp;
-        proxy_temp_path /app/tmp;
-        fastcgi_temp_path /app/tmp;
-        scgi_temp_path /app/tmp;
-        uwsgi_temp_path /app/tmp;
-
-        # hello world example
-        location / {
-          mruby_content_handler_code '
-            Nginx::rputs \"Hello #{Nginx::module_name}/#{Nginx::module_version} world!\"
-          ';
-        }
-
-        location ~ \.rb$ {
-            mruby_add_handler on;
-        }
-    }
-}
-" > "$BUILD_DIR/conf/nginx.conf"
 
 exit 0
