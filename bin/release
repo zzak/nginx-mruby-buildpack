@@ -4,5 +4,5 @@
 cat << EOF
 ---
 default_process_types:
-  web: nginx -c /app/conf/nginx.conf
+  web: bin/start-nginx
 EOF
