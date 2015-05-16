@@ -18,6 +18,9 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
+mkdir -p "$BUILD_DIR/bin"
+cp bin/start-nginx $BUILD_DIR/bin/
+
 mkdir -p "$BUILD_DIR/vendor"
 
 wget https://s3-external-1.amazonaws.com/heroku-buildpack-ruby/cedar-14/ruby-2.2.2.tgz
@@ -60,7 +63,7 @@ make install
 # populate profile.d
 PROFILE_PATH="$BUILD_DIR/.profile.d/path.sh"
 mkdir -p $(dirname $PROFILE_PATH)
-echo "export PATH=\"vendor/bin:vendor/ngx_mruby/build/nginx/sbin:$PATH\"" >> $PROFILE_PATH
+echo "export PATH=\"bin:vendor/bin:vendor/ngx_mruby/build/nginx/sbin:$PATH\"" >> $PROFILE_PATH
 
 cd $BUILD_DIR
 mkdir -p "$BUILD_DIR/conf"
