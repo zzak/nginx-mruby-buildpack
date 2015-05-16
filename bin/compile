@@ -24,7 +24,7 @@ cp "$SCRIPT_DIR/bin/start-nginx" "$BUILD_DIR/bin/"
 
 mkdir -p "$BUILD_DIR/vendor"
 
-wget https://s3-external-1.amazonaws.com/heroku-buildpack-ruby/cedar-14/ruby-2.2.2.tgz
+wget -q https://s3-external-1.amazonaws.com/heroku-buildpack-ruby/cedar-14/ruby-2.2.2.tgz
 tar -xzf ruby-2.2.2.tgz -C "$BUILD_DIR/vendor"
 
 ruby -v
