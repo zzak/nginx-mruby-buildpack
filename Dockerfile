@@ -25,10 +25,10 @@ ENV PATH /opt/rubies/2.2.2/bin:$PATH
 RUN curl https://github.com/gliderlabs/herokuish/releases/download/v0.3.0/herokuish_0.3.0_linux_x86_64.tgz --silent -L | tar -xzC /bin
 
 # Setup herokuish with default buildpacks
-RUN herokuish buildpack install \
-  && ln -s /bin/herokuish /build
-  && ln -s /bin/herokuish /start
-  && ln -s /bin/herokuish /exec
+RUN herokuish buildpack install
+RUN ln -s /bin/herokuish /build
+RUN ln -s /bin/herokuish /start
+RUN ln -s /bin/herokuish /exec
 
 # Install ngx_mruby-buildpack using herokuish
 RUN /bin/herokuish buildpack install git://github.com/zzak/ngx_mruby-buildpack.git
