@@ -1,0 +1,17 @@
+#! /usr/bin/env ruby
+
+require 'yaml'
+require 'open3'
+
+processes = YAML.load_file 'Procfile'
+
+Open3.popen2e(processes["web"]) do |stdin, stdout, thread|
+  while line = stdout.gets
+    puts line
+  end
+
+  exit_status = thread.value
+  unless exit_status.success?
+    fail "#{processes["web"]} failed"
+  end
+end

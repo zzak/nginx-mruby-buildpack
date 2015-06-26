@@ -22,6 +22,7 @@ ENV_DIR=$3
 mkdir -p "$BUILD_DIR/bin"
 cp "$SCRIPT_DIR/bin/start-nginx" "$BUILD_DIR/bin/"
 cp "$SCRIPT_DIR/bin/init" "$BUILD_DIR/bin/"
+cp "$SCRIPT_DIR/bin/proc" "$BUILD_DIR/bin/"
 
 mkdir -p "$BUILD_DIR/vendor"
 
