@@ -15,5 +15,6 @@ MRuby::Build.new do |conf|
   conf.gem :github => 'matsumoto-r/mruby-sleep'
   conf.gem :github => 'matsumoto-r/mruby-userdata'
   conf.gem :github => 'matsumoto-r/mruby-uname'
+  conf.gem :github => 'zzak/nhk-easy-mruby'
   conf.gem '../mrbgems/ngx_mruby_mrblib'
 end
