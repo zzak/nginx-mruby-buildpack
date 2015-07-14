@@ -33,6 +33,7 @@ export PATH="$BUILD_DIR/vendor/bin":$PATH
 cd "$BUILD_DIR/vendor"
 git clone git://github.com/matsumoto-r/ngx_mruby.git
 
+cp "$SCRIPT_DIR/conf/build_config.rb" "$BUILD_DIR/vendor/ngx_mruby/build_config.rb"
 cd ngx_mruby
 git submodule init
 git submodule update
