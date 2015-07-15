@@ -4,6 +4,10 @@ events {
     worker_connections  200;
 }
 
+<% ENV.keys.each do |key| %>
+env <%= key %>;
+<% end %>
+
 daemon off;
 master_process off;
 
