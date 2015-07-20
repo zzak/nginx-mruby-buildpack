@@ -1,5 +1,4 @@
 worker_processes  1;
-error_log /app/logs/nginx.error.log;
 events {
     worker_connections  200;
 }
@@ -12,7 +11,12 @@ daemon off;
 master_process off;
 
 http {
+    include       /app/vendor/ngx_mruby/build/nginx/conf/mime.types;
+    default_type  application/octet-stream;
+    sendfile      on;
+
     access_log  /app/logs/nginx.access.log;
+    error_log   stderr;
 
     server {
         listen <%= ENV["PORT"] %>;
