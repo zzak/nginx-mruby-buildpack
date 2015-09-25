@@ -5,6 +5,6 @@
 #
 # We should return 0 if the app is compatible, otherwise exit code 1.
 
-echo 'ngx_mruby-buildpack'
+echo 'nginx-mruby-buildpack'
 
 return 0
