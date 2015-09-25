@@ -32,7 +32,12 @@ export PATH="$BUILD_DIR/vendor/bin":$PATH
 cd "$BUILD_DIR/vendor"
 git clone --depth=1 git://github.com/matsumoto-r/ngx_mruby.git
 
-cp "$SCRIPT_DIR/conf/build_config.rb" "$BUILD_DIR/vendor/ngx_mruby/build_config.rb"
+if test -f "/app/conf/build_config.rb"; then
+  BUILD_CONFIG="/app/conf/build_config.rb"
+else
+  BUILD_CONFIG="$SCRIPT_DIR/conf/build_config.rb"
+fi
+cp $BUILD_CONFIG "$BUILD_DIR/vendor/ngx_mruby/build_config.rb"
 cd ngx_mruby
 git submodule init
 git submodule update
