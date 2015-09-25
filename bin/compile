@@ -26,9 +26,8 @@ cp "$SCRIPT_DIR/bin/proc" "$BUILD_DIR/bin/"
 
 mkdir -p "$BUILD_DIR/vendor"
 
-curl --silent https://s3-external-1.amazonaws.com/heroku-buildpack-ruby/cedar-14/ruby-2.2.2.tgz | tar -xz -C "$BUILD_DIR/vendor"
+curl --silent https://s3-external-1.amazonaws.com/heroku-buildpack-ruby/cedar-14/ruby-2.2.3.tgz | tar -xz -C "$BUILD_DIR/vendor"
 export PATH="$BUILD_DIR/vendor/bin":$PATH
-
 
 cd "$BUILD_DIR/vendor"
 git clone --depth=1 git://github.com/matsumoto-r/ngx_mruby.git
